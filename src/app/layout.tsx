@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
   <head>
   <link rel="manifest" href="/gagana-sahayi/manifest.webmanifest" />
-  <meta name="theme-color" content="#16a34a" />
+  <meta name="theme-color" content="#0a0874ff" />
   <link rel="icon" href="/gagana-sahayi/favicon.ico" sizes="any" />
   <link rel="apple-touch-icon" href="/gagana-sahayi/icons/icon-192.png" />
 </head>
