@@ -1,21 +1,26 @@
 "use client";
+
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useLang } from "./LangProvider";
 import { t } from "@/lib/i18n";
 
 const labels = {
   title: { en: "Gagana Sahayi", ml: "ഗഗന സഹായി" },
-  home:  { en: "Home", ml: "ഹോം" },
+  home:  { en: "Home",  ml: "ഹോം" },
   learn: { en: "Learn", ml: "ലേൺ" },
-  try:   { en: "Try", ml: "ട്രൈ" },
-  play:  { en: "Play", ml: "പ്ലേ" },
-  quiz:  { en: "Quiz", ml: "ക്വിസ്" },
+  try:   { en: "Try",   ml: "ട്രൈ" },
+  play:  { en: "Play",  ml: "പ്ലേ" },
+  quiz:  { en: "Quiz",  ml: "ക്വിസ്" },
   about: { en: "About", ml: "അബൗട്ട്" },
   visit: { en: "KinKinetics ↗", ml: "കിൻകിനെറ്റിക്സ് ↗" },
   langBtn: { en: "മലയാളം", ml: "English" }, // shows the other language
 };
+
+// 👇 This is the only “magic” we need for GitHub Pages.
+// In production set NEXT_PUBLIC_BASE_PATH=/gagana-sahayi
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export function Nav() {
   const pathname = usePathname();
@@ -33,21 +38,32 @@ export function Nav() {
   return (
     <header className="border-b bg-white">
       <nav className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/kinkinetics-logo.png" alt="KinKinetics" width={32} height={32} priority />
+        <Link href="/" className="flex items-center gap-2" aria-label="Go to home">
+          {/* IMPORTANT: use BASE so the logo loads under /gagana-sahayi on GitHub Pages */}
+          <Image
+            src={`${BASE}/kinkinetics-logo.png`}
+            alt="KinKinetics"
+            width={36}
+            height={36}
+            priority
+            className="h-9 w-auto"
+          />
           <span className="font-semibold text-green-700">{t(lang, labels.title)}</span>
         </Link>
 
         <div className="flex items-center gap-3">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={`hover:underline ${pathname === l.href ? "font-semibold text-green-700" : ""}`}
-            >
-              {t(lang, l.label)}
-            </Link>
-          ))}
+          {links.map((l) => {
+            const active = pathname === l.href;
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={`hover:underline ${active ? "font-semibold text-green-700" : ""}`}
+              >
+                {t(lang, l.label)}
+              </Link>
+            );
+          })}
 
           <a
             href="https://kinkinetics.co.in"
@@ -72,3 +88,4 @@ export function Nav() {
   );
 }
 
+export default Nav;
