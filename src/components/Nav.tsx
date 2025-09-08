@@ -68,7 +68,7 @@ export function Nav() {
           })}
 
           <a
-            href="https://kinkinetics.co.in"
+            href="https://kinkinetics.com"
             target="_blank"
             rel="noopener noreferrer"
             className="border border-green-700 px-3 py-1 rounded-lg text-green-700 hover:bg-green-700 hover:text-white"
